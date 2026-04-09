@@ -5,11 +5,13 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from curriculum_rl_lab.env_bootstrap import load_minimax_env
 from curriculum_rl_lab.reporting import emit_report
 from curriculum_rl_lab.training import run_training
 
 
 def main_train() -> None:
+    load_minimax_env()
     p = argparse.ArgumentParser(description="Train PPO on CurriculumGridWorldEnv")
     p.add_argument("--out", type=Path, default=Path("runs/latest"), help="Output directory")
     p.add_argument("--timesteps", type=int, default=50_000)
@@ -29,6 +31,7 @@ def main_train() -> None:
 
 
 def main_report() -> None:
+    load_minimax_env()
     p = argparse.ArgumentParser(description="Generate lab report from metrics.json")
     p.add_argument("--metrics", type=Path, default=Path("runs/latest/metrics.json"))
     p.add_argument("--out", type=Path, default=None, help="Optional path to write report.md")

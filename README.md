@@ -16,7 +16,18 @@ source .venv/bin/activate
 pip install -e ".[dev]"
 ```
 
-Optional CrewAI report:
+### MiniMax (recommended for `crl-report`)
+
+Copy `.env.example` to `.env` and set your MiniMax API key (OpenAI-compatible endpoint):
+
+```bash
+cp .env.example .env
+# Edit .env: MINIMAX_API_KEY, optional MINIMAX_MODEL (default MiniMax-M2)
+```
+
+See [MiniMax OpenAI-compatible API](https://platform.minimax.io/docs/api-reference/text-openai-api).
+
+Optional CrewAI report (OpenAI or other providers supported by CrewAI):
 
 ```bash
 pip install -e ".[crew]"
