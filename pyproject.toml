@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "curriculum-rl-lab"
+version = "0.1.0"
+description = "Sparse-reward GridWorld RL (PPO) with optional CrewAI lab reports"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "ml-lubich" }]
+dependencies = [
+  "gymnasium>=0.29.1",
+  "numpy>=1.26",
+  "stable-baselines3>=2.3.0",
+  "torch>=2.1.0",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+crew = [
+  "crewai>=0.80.0",
+  "langchain-openai>=0.2.0",
+]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.4.0",
+]
+
+[project.scripts]
+crl-train = "curriculum_rl_lab.cli:main_train"
+crl-report = "curriculum_rl_lab.cli:main_report"
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
