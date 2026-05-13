@@ -38,6 +38,7 @@ flowchart LR
 - [Tests](#tests)
 - [Project layout](#project-layout)
 - [License](#license)
+- [🗺️ Repository map](#️-repository-map)
 
 ## PPO curriculum loop (algorithm)
 
@@ -151,3 +152,23 @@ pyproject.toml              # [dev] + [crew] extras
 ## License
 
 MIT
+
+
+## 🗺️ Repository map
+
+Top-level layout of `curriculum-rl-lab` rendered as a Mermaid mindmap (auto-generated from the on-disk tree).
+
+```mermaid
+mindmap
+  root((curriculum-rl-lab))
+    src/
+      curriculum_rl_lab
+    tests/
+      test_grid_world.py
+      test_reporting_paths.py
+      test_training_smoke.py
+    files
+      LICENSE
+      README.md
+      pyproject.toml
+```
