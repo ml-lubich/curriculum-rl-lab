@@ -30,12 +30,59 @@ flowchart LR
 ## Table of contents
 
 - [What you get](#what-you-get)
+- [PPO curriculum loop (algorithm)](#ppo-curriculum-loop-algorithm)
+- [Report sequence](#report-sequence)
 - [Setup](#setup)
 - [Train](#train)
 - [Report](#report)
 - [Tests](#tests)
 - [Project layout](#project-layout)
 - [License](#license)
+
+## PPO curriculum loop (algorithm)
+
+```mermaid
+flowchart LR
+    A([start])
+    B["build CurriculumGridWorldEnv<br/>level 0"]
+    C["PPO collect rollouts"]
+    D["update policy"]
+    E["log episode reward"]
+    F{"reward &gt; threshold<br/>over window?"}
+    G["advance curriculum<br/>level += 1"]
+    H{"timesteps left?"}
+    I["save model.zip<br/>+ metrics.json"]
+    Z([done])
+    A --> B --> C --> D --> E --> F
+    F -- yes --> G --> H
+    F -- no  --> H
+    H -- yes --> C
+    H -- no  --> I --> Z
+```
+
+## Report sequence
+
+```mermaid
+sequenceDiagram
+    participant U as user
+    participant R as crl-report
+    participant FS as runs/latest
+    participant MM as MiniMax
+    participant CR as CrewAI / OpenAI
+
+    U->>R: crl-report --in runs/latest
+    R->>FS: read metrics.json
+    alt MINIMAX_API_KEY
+        R->>MM: chat(metrics summary)
+        MM-->>R: narrative
+    else OPENAI_API_KEY + [crew]
+        R->>CR: crew tasks
+        CR-->>R: narrative
+    else offline
+        R->>R: deterministic stub
+    end
+    R-->>U: report.md
+```
 
 ## What you get
 
